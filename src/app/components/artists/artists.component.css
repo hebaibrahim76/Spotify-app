@@ -1,0 +1,35 @@
+ul{
+    -moz-column-count: 3;
+    -moz-column-gap: 50px;
+    -webkit-column-count: 3;
+    -webkit-column-gap: 50px;
+    column-count: 3;
+    column-gap: 50px;
+}
+li{
+    overflow: hidden;
+}
+
+  .content {
+    padding: 16px;
+}
+
+.content > mat-card {
+    width: 200px;
+}
+p{
+    color:gray;
+    margin-left: 15px;
+    font-size: large;
+}
+h1{
+    margin-left: 15px;
+    margin-top: 15px;
+    font-size: x-large;
+}
+img{
+    margin-right: 2px;
+}
+mat-card{
+    cursor: pointer;
+}
