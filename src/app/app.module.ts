@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { LogInComponent } from './components/log-in/log-in.component';
 import { SearchComponent } from './components/search/search.component';
 import { FormsModule } from '@angular/forms';
@@ -17,7 +17,10 @@ import { MatCardModule } from '@angular/material/card';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AlbumsComponent } from './components/albums/albums.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { HeaderComponent } from './components/header/header.component'
+import { HeaderComponent } from './components/header/header.component';
+import { InterceptorService } from './services/interceptor.service';
+import { MatPaginatorModule } from '@angular/material/paginator'
+import { JwPaginationModule } from 'jw-angular-pagination';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,7 @@ import { HeaderComponent } from './components/header/header.component'
     AuthComponent,
     ArtistsComponent,
     AlbumsComponent,
-    HeaderComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -39,9 +42,17 @@ import { HeaderComponent } from './components/header/header.component'
     FlexLayoutModule,
     MatCardModule,
     NgbModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatPaginatorModule,
+    JwPaginationModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true
+     }
+  ],
     
   bootstrap: [AppComponent]
 })

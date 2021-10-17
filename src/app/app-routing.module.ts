@@ -9,7 +9,7 @@ import { SearchComponent } from './components/search/search.component';
 const routes: Routes = [
 
   {
-    path: '',
+    path: 'login',
     component: LogInComponent
   },
   {
@@ -23,6 +23,15 @@ const routes: Routes = [
   {
     path:'albums/:id',
     component:AlbumsComponent
+  },
+  {
+    path:'**',
+    redirectTo:'/search'
+  },
+  {
+    path:'',
+    redirectTo:'/login',
+    pathMatch:'full'
   }
 ];
 

@@ -1,3 +1,16 @@
-<input type="search" placeholder="search for an artist..." name="searchtext" [(ngModel)]="searchtext" (ngModelChange)="search()" />
+
+<input type="search" #searchInput placeholder="search for an artist..." name="searchtext"  [(ngModel)]="searchtext"  />
 
 <app-artists *ngIf="flag" [artists]="artists" ></app-artists>
+
+<div class="card-footer" style="color: rgb(44, 44, 44);" *ngIf="flag">
+<mat-paginator #paginator 
+[length]="length"
+[pageIndex]="pageNo"
+[pageSize]="20"
+hidePageSize="true"
+(page)="changePage($event)"
+
+>
+</mat-paginator>
+</div>

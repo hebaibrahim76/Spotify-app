@@ -1,16 +1,4 @@
-ul{
-    -moz-column-count: 3;
-    -moz-column-gap: 50px;
-    -webkit-column-count: 3;
-    -webkit-column-gap: 50px;
-    column-count: 3;
-    column-gap: 50px;
-}
-li{
-    overflow: hidden;
-}
-
-  .content {
+.content {
     padding: 16px;
 }
 
@@ -29,7 +17,11 @@ h1{
 }
 img{
     margin-right: 2px;
+  
 }
 mat-card{
     cursor: pointer;
+    background-color: rgb(44, 44, 44);
+    color: rgb(236, 233, 233);
 }
+

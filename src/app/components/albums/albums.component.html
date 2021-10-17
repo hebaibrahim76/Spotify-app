@@ -18,12 +18,21 @@
             <p>{{album.release_date}}</p>
             <p>{{album.total_tracks}} tracks</p>
           </mat-card-content>
-          <div style="margin-top: auto;" class="card-footer">
+          <div id="footer" style="margin-top: auto;" class="card-footer">
           <mat-card-actions>
-              <a href="{{album.external_urls.spotify}}" target="_blank" style="margin:auto; text-align: center;" >Preview On Spotify</a>
+              <a href="{{album.external_urls.spotify}}" target="_blank" style="color: #1ed671;" >Preview On Spotify</a>
           </mat-card-actions>
         </div>
         </mat-card>
       </div>
     </div>
     </div>
+
+<mat-paginator #paginator
+[length]="length"
+[pageIndex]="pageNo"
+[pageSize]="20"
+hidePageSize="true"
+(page)="changePage($event)"
+>
+</mat-paginator>

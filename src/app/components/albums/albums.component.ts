@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import * as $ from 'jquery';
+import { AlbumService } from 'src/app/services/album.service';
 
 @Component({
   selector: 'app-albums',
@@ -11,37 +11,53 @@ export class AlbumsComponent implements OnInit {
   id:string;
   albums:[];
   name:string;
+  nextUrl:string;
+  prevUrl:string;
+  pageIndex:number;
+  pageNo: number;
+  length:number;
+  
+  constructor(private change:ChangeDetectorRef,private router:Router,private albumService:AlbumService) { }
 
-  constructor(private change:ChangeDetectorRef,private router:Router) { }
-
-  getID(url:string):string{
+  getName(url:string):string{
     const arr=url.split('/');
-    return arr[arr.length-1];
+    return arr[arr.length-1].split('-').join(' ');
   }
+
   ngOnInit(): void {
     
-    this.id=this.getID(this.router.url)
-    $.ajax({
-      type:'GET',
-      url: `https://api.spotify.com/v1/artists/${this.id}/albums`,
-      headers: {
-          'Authorization': 'Bearer '+localStorage.getItem('access_token'),
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-      },
-      success: (response) =>{
-        this.name=localStorage.getItem('artist_name');
-        this.change.detectChanges();
-          
-          this.albums=response.items;
-          
-          this.change.detectChanges();
-      },
-      error: (error)=>{
-        console.log(error);
-      }
-      
-  })
+    this.name=this.getName(this.router.url);
+    this.id=localStorage.getItem(this.name);
+    this.albumService.getAlbumResult(this.id).subscribe(res=>{
+    console.log(res);
+    this.prevUrl=res.previous;
+    this.nextUrl=res.next;
+    this.albums=res.items;
+    this.pageIndex = res.offset/20;
+    this.length =parseInt(''+res.total/20);
+    this.change.detectChanges();
+})
+  }
+  nextPrev(url:string){
+  
+   this.albumService.getNPAlbumResult(url).subscribe(res=>{
+     
+     this.albums=res.items;
+     this.prevUrl=res.previous;
+     this.nextUrl=res.next;
+
+     this.change.detectChanges();
+   })
+ }
+  changePage(event:any){
+    
+    if(event.previousPageIndex < event.pageIndex) {
+      this.nextPrev(this.nextUrl);
+    } else {
+      this.nextPrev(this.prevUrl);
+    }
+  }
+    
   }
 
-}
+

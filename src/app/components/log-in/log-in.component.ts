@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import * as $ from 'jquery';
-import { Alert } from 'selenium-webdriver';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-log-in',
   templateUrl: './log-in.component.html',
@@ -14,7 +14,7 @@ export class LogInComponent implements OnInit {
     	"response_type": "token",
     	"redirect_uri": "http://localhost:4200/callback"
     }
-  constructor() { }
+  constructor(private router:Router) { }
 
   ngOnInit(): void {
   }

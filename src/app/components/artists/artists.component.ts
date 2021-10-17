@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
-import * as $ from 'jquery';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-artists',
@@ -7,15 +7,18 @@ import * as $ from 'jquery';
   styleUrls: ['./artists.component.css']
 })
 export class ArtistsComponent implements OnInit {
-  
+
 @Input() artists:any[];
 
-  constructor(private change: ChangeDetectorRef) { }
+total;
+  constructor(private change: ChangeDetectorRef,private router:Router) { }
 
   ngOnInit(): void {
+    this.total=localStorage.getItem('total');
   }
   artistAlbum(id,name){
-    localStorage.setItem('artist_name',name);
-    window.location.href= `/albums/${id}`;
+    localStorage.setItem(name.split('-').join(' '),id);
+    window.location.href= `/albums/${name.replace(/\s/g,'-')}`;
   }
+
 }

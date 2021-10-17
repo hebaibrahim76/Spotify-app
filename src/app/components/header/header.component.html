@@ -1,3 +1,5 @@
-<mat-toolbar>
-    <span>Spotify Artist Search</span>
+<mat-toolbar fxLayout="row">
+  <img src="../../../assets/images/spotify_logo.png" width="30px" height="30px" /> &nbsp;
+    <span fxFlex>Spotify Artist Search</span>
+    <button mat-button  fxShow="true" *ngIf="hasRoute()"  (click)="logout()">Log Out</button>
   </mat-toolbar>
