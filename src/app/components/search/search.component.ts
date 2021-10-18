@@ -21,7 +21,8 @@ export class SearchComponent implements OnInit {
   pageNo: number
   length:number;
 
-  constructor(private change: ChangeDetectorRef, private seachService:SearchService) {     
+  constructor(private change: ChangeDetectorRef, private seachService:SearchService) { 
+    
   }
 
   ngOnInit(): void {
@@ -51,7 +52,7 @@ export class SearchComponent implements OnInit {
  
 
   search(){
-    if(this.searchtext){
+    if(this.searchtext && this.searchtext!=' '){
     this.seachService.getSearchResult(this.searchtext).subscribe(res=>{
       
       console.log(res);

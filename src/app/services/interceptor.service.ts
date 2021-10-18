@@ -30,7 +30,7 @@ export class InterceptorService implements HttpInterceptor{
          if (error.status === 401) { //unauthorized
          window.location.href='/login'
       }
-      if(error.error.error.message=='invalid id'){
+      if(error.error.error.message=='invalid id'){ //user put random name in albums/name
         window.location.href='/search'
       }
       if (error.status === 0) {

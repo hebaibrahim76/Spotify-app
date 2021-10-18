@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TokenService } from '../../services/token.service';
 
 @Component({
   selector: 'app-auth',
@@ -9,7 +8,7 @@ import { TokenService } from '../../services/token.service';
 })
 export class AuthComponent implements OnInit {
 
-  constructor(private tokenService:TokenService,private router:Router) { }
+  constructor(private router:Router) { }
   getCurrentQueryParameters(delimiter = '#') {
   
     const currentLocation = String(window.location).split(delimiter)[1];
@@ -17,10 +16,13 @@ export class AuthComponent implements OnInit {
     return params;
   }
   ngOnInit(): void {
+    if(window.location.href.includes('#')){
     const currentQueryParameters = this.getCurrentQueryParameters('#');
     const accessToken = currentQueryParameters.get('access_token');
     localStorage.setItem('access_token', accessToken);
-    this.tokenService.getToken().subscribe(res=>this.router.navigate(['/search']));
+    this.router.navigate(['/search'])
+    }
+    
   }
 
 }

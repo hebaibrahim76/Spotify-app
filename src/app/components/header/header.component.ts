@@ -19,9 +19,9 @@ export class HeaderComponent implements OnInit {
     
   }
   hasRoute(){
-    if(localStorage.getItem('access_token')!=null)
-    return true;
+    if(localStorage.getItem('access_token')==null)
     return false;
+    return true;
   }
 
 }

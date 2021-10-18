@@ -14,7 +14,7 @@ total;
   constructor() { }
 
   ngOnInit(): void {
-    this.total=localStorage.getItem('total');
+    //this.total=localStorage.getItem('total');
   }
   artistAlbum(id,name){
     localStorage.setItem(name.split('-').join(' '),id);

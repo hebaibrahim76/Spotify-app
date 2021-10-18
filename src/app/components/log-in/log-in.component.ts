@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LogInComponent implements OnInit {
   AUTH_BASE_URL = 'https://accounts.spotify.com/authorize';
-  API_ENDPOINT = 'https://api.spotify.com/v1/me';
+ 
   params1={
     	"client_id": "7512dbdb534c4ca4a1b6a698caa60785",
     	"response_type": "token",
