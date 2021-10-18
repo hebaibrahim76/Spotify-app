@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, Input} from '@angular/core';
+
 
 @Component({
   selector: 'app-artists',
@@ -11,7 +11,7 @@ export class ArtistsComponent implements OnInit {
 @Input() artists:any[];
 
 total;
-  constructor(private change: ChangeDetectorRef,private router:Router) { }
+  constructor() { }
 
   ngOnInit(): void {
     this.total=localStorage.getItem('total');

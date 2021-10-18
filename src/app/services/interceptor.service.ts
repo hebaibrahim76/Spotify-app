@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpResponse, HttpHeaders, HttpErrorResponse } from '@angular/common/http'
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpHeaders, HttpErrorResponse } from '@angular/common/http'
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
@@ -15,10 +15,9 @@ export class InterceptorService implements HttpInterceptor{
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this.token=localStorage.getItem('access_token');
    if (this.token) {
-    // If we have a token, we set it to the header
     req=req.clone({
       headers:new HttpHeaders({
-        //'Content-Type': 'application/json',
+     
         'Accept': 'application/json',
         Authorization: `Bearer ${this.token}`
       })
@@ -30,6 +29,9 @@ export class InterceptorService implements HttpInterceptor{
      if (error instanceof HttpErrorResponse) {
          if (error.status === 401) { //unauthorized
          window.location.href='/login'
+      }
+      if(error.error.error.message=='invalid id'){
+        window.location.href='/search'
       }
       if (error.status === 0) {
         console.error('An error occurred:', error.error);

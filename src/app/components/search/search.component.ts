@@ -1,10 +1,8 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild, OnChanges, SimpleChanges} from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { PageEvent } from '@angular/material/paginator';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { SearchService } from 'src/app/services/search.service';
-import { debounceTime,distinctUntilChanged,map,filter } from 'rxjs/operators';
-import { Observable, Subject,fromEvent } from 'rxjs';
-import { Location } from '@angular/common'
+import { debounceTime,distinctUntilChanged,map } from 'rxjs/operators';
+import { fromEvent } from 'rxjs';
+
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -18,23 +16,17 @@ export class SearchComponent implements OnInit {
 
   nextUrl:string;
   prevUrl:string;
-  pageEvent: PageEvent;
 
   pageIndex:number;
   pageNo: number
   length:number;
-  modelChanged: Subject<string> = new Subject<string>();
 
-  constructor(private change: ChangeDetectorRef, private seachService:SearchService) { 
-    
+  constructor(private change: ChangeDetectorRef, private seachService:SearchService) {     
   }
 
-
-
-  
   ngOnInit(): void {
     this.pageNo=0;
-    console.log(this.searchInput);
+    
 
     fromEvent(this.searchInput.nativeElement, 'input').pipe(
 
@@ -43,13 +35,12 @@ export class SearchComponent implements OnInit {
         return event.target.value;
       })
 
-      // Time in milliseconds between key events
       , debounceTime(1000)
 
       // If previous query is diffent from current   
       , distinctUntilChanged()
 
-      // subscription for response
+
     ).subscribe(text=> {
       
       this.searchtext=text
@@ -81,16 +72,13 @@ export class SearchComponent implements OnInit {
   }
   }
   nextPrev(url:string){
-     //console.log(url);
+
     this.seachService.getNPSearchResult(url).subscribe(res=>{
-     // console.log(res);
-      
+
       this.artists=res.artists.items;
       this.prevUrl=res.artists.previous;
       this.nextUrl=res.artists.next;
-      
-      //console.log(response.artists.previous);
-      //console.log("prev "+this.prevUrl);
+
       
       this.change.detectChanges();
     })
@@ -100,12 +88,8 @@ export class SearchComponent implements OnInit {
     
     if(event.previousPageIndex < event.pageIndex) {
       this.nextPrev(this.nextUrl);
-      //console.log('next');
-      
-
     } else {
       this.nextPrev(this.prevUrl);
-      //console.log('prev');
     }
   }
 

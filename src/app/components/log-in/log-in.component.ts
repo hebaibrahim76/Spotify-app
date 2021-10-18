@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-log-in',
@@ -14,7 +13,7 @@ export class LogInComponent implements OnInit {
     	"response_type": "token",
     	"redirect_uri": "http://localhost:4200/callback"
     }
-  constructor(private router:Router) { }
+  constructor() { }
 
   ngOnInit(): void {
   }

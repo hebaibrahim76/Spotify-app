@@ -12,7 +12,7 @@ img{
     margin-right: 2px;
 }
 mat-card{
-    cursor: pointer;
+    
     background-color: rgb(44, 44, 44);
     color: rgb(236, 233, 233);;
 }
